@@ -1,0 +1,57 @@
+.page-about {
+    color: white;
+    background: black;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .8s @easeOutExpo .5s;
+
+    &.animateIn {
+        opacity: 1;
+    }
+    
+    .default--letters {
+        background: black;
+        
+        .default--letter {
+            fill: white;
+        }
+    }
+
+    .page--socials svg {
+        fill: white;
+    }
+    
+    .letters--mask {
+        z-index: 2;
+
+        canvas {
+            // transform: scale(2);
+        }
+    }
+    
+    span {
+        display: block;
+    }
+
+    a {
+        color: white;
+    }
+
+    @media @mobile {
+        // overflow-y: scroll;
+        // overflow-x: hidden;
+        // -webkit-overflow-scrolling: touch;
+        
+        .col-6 {
+            width: 100%;
+        }
+
+        a {
+            font-weight: @bold;
+
+            &:before {
+                transform: none;
+            }
+        }
+    }
+}

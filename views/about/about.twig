@@ -1,0 +1,30 @@
+{% extends "_base.twig" %}
+
+{% block content %}
+    {% if not isAJAX %}<section id="page-about" class="page page-about is-hidden">{% endif %}
+        <div class="default--letters ui-letters">
+            <svg class="default--letter letter--left ui-letter" viewBox="0 0 596.8 900">
+                <polygon points="0,348.5 0,519 322.8,900 596.8,900 201.8,432.5 567.3,0 293.8,0 "/>
+            </svg>
+            <div class="letters--mask ui-mask"></div>
+        </div>
+        <div class="page--content page--content--center ui-content">
+            <div class="vertical-center">
+                <div class="vertical-el">
+                    <div class="device-content">
+                        <h1 class="ui-split" data-split="lines, chars">We are whitelist.<br>a video production<br>studio.</h1>
+                        <div class="row">
+                            <div class="column col-6 ui-stagger">
+                                <a href="/works">› View latest works</a>
+                            </div>
+                            <div class="column col-6 ui-stagger">
+                                <p>The Whitelist Collective is a video content studio specializing in commercial and branded entertainment for broadcast and digital platforms. We are comprised of the most talented young filmmakers in the world and collaborate with one another in an environment that challenges the status quo, leaving behind emotionally impactful, unforgettable work.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'components/socials.twig' %}
+    {% if not isAJAX %}</section>{% endif %}
+{% endblock %}

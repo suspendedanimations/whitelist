@@ -1,0 +1,23 @@
+{% extends "_base.twig" %}
+
+{% block content %}
+    {% if not isAJAX %}<section id="page-work-single" class="page page-work-single is-hidden">{% endif %}
+    <div class="work-single">
+        <div class="work-video ui-video">
+            <iframe class="ui-frame" src="//player.vimeo.com/video/{{ work.video_id }}?autoplay=1&amp;loop=true" frameborder="0"></iframe>
+        </div>
+        <div class="work-infos ui-layer">
+            <div class="content device-content ui-scroll">
+                <span class="client">{{ work.client }}</span>
+                <h1>{{ work.title }}</h1>
+                {{ work.credits }}
+            </div>
+        </div>
+        <nav class="info-nav ui-worknav">
+            <span class="ui-infos link">informations</span>
+            <a href="/works" class="is-close link">close</a>
+        </nav>
+        <div class="close-text ui-close">close</div>
+    </div>
+    {% if not isAJAX %}</section>{% endif %}
+{% endblock %}

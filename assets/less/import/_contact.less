@@ -1,0 +1,93 @@
+.page-contact {
+    color: white;
+    background: black;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity .8s @easeOutExpo .5s;
+    
+    &.animateIn {
+        opacity: 1;
+    }
+
+    .round--letters {
+        position: fixed;
+        background: black;
+        
+        .round--letter {
+            fill: white;
+        }
+    }
+
+    .page--socials svg {
+        fill: white;
+    }
+    
+    .letters--mask {
+        z-index: 2;
+
+        canvas {
+            // transform: scale(2);
+        }
+    }
+
+    .row:not(:last-child) {
+        margin: 0 0 @50px;
+    }
+
+    span {
+        display: block;
+        font-size: @14px;
+    }
+
+    .device-content a {
+        color: white;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        padding-bottom: 1px;
+        overflow: hidden;
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute; bottom: 1px; left: 0;
+            .size(100%,1px);
+            background: white;
+            transition: transform .8s @easeOutExpo;
+        }
+
+        &:before {
+            transform: scaleX(1);
+            transition-delay: .3s;
+            transform-origin: left;
+        }
+
+        &:after {
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+        
+        &:hover {
+            &:before {
+                transform: scaleX(0);
+                transform-origin: right;
+                transition-delay: 0s;
+            }
+            &:after {
+                transform: scaleX(1);
+                transform-origin: left;
+                transition-delay: .3s;
+            }
+        }
+    }
+    
+    @media @mobile {
+        // overflow-y: scroll;
+        // overflow-x: hidden;
+        // -webkit-overflow-scrolling: touch;
+        
+        .col-6 {
+            width: 100%;
+        }
+    }
+}
