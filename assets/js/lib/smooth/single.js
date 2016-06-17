@@ -15,8 +15,9 @@ class Single extends Smooth {
     run() {
                 
         super.run()
-
-        this.vars.target += .3
+        
+        if(this.vars.target < this.vars.bounding)
+            this.vars.target += .3
         
         this.dom.section.style.cssText = `${this.prefix}: ${this.getTransform(-(this.vars.current).toFixed(2))}; ${this.willchange}`
     }

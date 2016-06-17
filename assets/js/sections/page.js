@@ -41,6 +41,7 @@ class Page extends Default {
 
         this.smooth = new Smooth({
             ease: .1,
+            noscrollbar: true,
             section: this.ui.content
         })
         

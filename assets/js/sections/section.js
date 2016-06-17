@@ -38,6 +38,7 @@ class Section extends Default {
 
         this.scroll = new Smooth({
             extends: true,
+            noscrollbar: true,
             section: this.ui.scroll,
             ease: .1
         })
@@ -124,9 +125,10 @@ class Section extends Default {
 
         const home = req.previous && req.previous.route === (config.routes.default || config.routes.home)
         const works = req.previous && req.previous.route === config.routes.work
-          
+        
         classes.add(config.$body, `is-${this.slug}`)
-		
+		classes.remove(config.$body, 'is-loading')
+
         const tl = new TimelineMax({ paused: true, onComplete: done })
         tl.from(this.page, 2, { autoAlpha: 0, ease: Expo.easeInOut })
         tl.to(this.ui.video, 5, { scale: 1, autoAlpha: 1, ease: Expo.easeInOut }, 0)
@@ -136,14 +138,16 @@ class Section extends Default {
 	animateOut(req, done) {
 
         classes.add(config.$body, 'is-loading')
-        classes.remove(config.$body, `is-${this.slug}`)
 
         this.page.style.zIndex = '10'
         
         const home = req.route === (config.routes.default || config.routes.home)
         const work = req.route === config.routes.work
 
-        const tl = new TimelineMax({ paused: true, onComplete: done }) 
+        const tl = new TimelineMax({ paused: true, onComplete: () => {
+            classes.remove(config.$body, `is-${this.slug}`)
+            done()
+        }})
         tl.to(this.page, 1.2, { autoAlpha: 0, ease: Expo.easeInOut })
         tl.restart()
     }
@@ -158,11 +162,11 @@ class Section extends Default {
     destroy(req, done) {
 
         super.destroy()
-
+        
         this.removeEvents()
 
         this.scroll.destroy()
-
+        
         this.page.parentNode.removeChild(this.page)
 
         done()

@@ -85,9 +85,13 @@
         // overflow-y: scroll;
         // overflow-x: hidden;
         // -webkit-overflow-scrolling: touch;
-        
+        .row:not(:last-child) {
+            margin-bottom: 0;
+        }
+
         .col-6 {
-            width: 100%;
+            width: 70%;
+            margin-bottom: @25px;
         }
     }
 }

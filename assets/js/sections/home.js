@@ -33,9 +33,10 @@ class Home extends Default {
 
 		this.ui.video.src = `${APP.THEME_URL}/assets/videos/loader-${Math.floor(Math.random()*3)+1}.mp4`
 		this.ui.video.load()
-
+		this.ui.video.play()
+		
 		this.addEvents()
-
+		
 		done()
 	}
 
@@ -44,7 +45,7 @@ class Home extends Default {
 		const images = [{ align: 'left', src: `${APP.THEME_URL}/assets/images/svg/letter-left.svg` }, { align: 'right', src: `${APP.THEME_URL}/assets/images/svg/letter-right.svg` }]
 		const canvas = this.canvas = document.createElement('canvas')
 		const ctx = canvas.getContext('2d')
-
+		
 		canvas.width = config.width
 		canvas.height = config.height
 		
@@ -76,12 +77,12 @@ class Home extends Default {
 		
 		event.on(config.$body, 'mousewheel', this.goWorks)
 	}
-
+	
 	removeEvents() {
 
 		this.canvas && this.canvas.destroy()
 		
-		event.off(config.$body, 'mousewheel')
+		event.off(config.$body, 'mousewheel',  this.goWorks)
 	}
 	
 	goWorks() {
@@ -94,14 +95,9 @@ class Home extends Default {
 		const work = req.previous && req.previous.route === `/work/:id`
 		
 		this.ui.intro.style.display = 'block'
-
-		classes.remove(config.$body, `is-loading`)
-		classes.add(config.$body, `is-${this.slug}`)
 		
 		requestAnimationFrame(() => classes.add(this.ui.logo, `animateIn`))
 		
-		this.ui.video.play()
-
 		const tl = new TimelineMax({ paused: true, onComplete: () => {
 
 			this.ui.intro.parentNode.removeChild(this.ui.intro)
@@ -116,6 +112,9 @@ class Home extends Default {
   		tl.from(this.ui.infos.querySelector('span'), 1, { autoAlpha: 0, x: '-10%', clearProps: 'all' }, '-=0.6')
   		tl.staggerFrom(this.ui.social, 1.1, { autoAlpha: 0, y: '60%', clearProps: 'all' }, .09, '-=2')
   		tl.restart()
+
+  		classes.remove(config.$body, 'is-loading')
+  		classes.add(config.$body, `is-${this.slug}`) 
 	}
 	
 	animateOut(req, done) {
@@ -128,17 +127,15 @@ class Home extends Default {
 		classes.remove(this.ui.container, `animateIn`)
 		classes.remove(this.ui.logo, `animateIn`)
 		
-		// this.ui.container.style['will-change'] = this.ui.clip.style['will-change'] = 'transform'
-		
 		const tl = new TimelineMax({ paused: true, onComplete: done })
-		tl.to(this.ui.letter[0], 1.6, { x: '-100%', ease: Expo.easeInOut }, .15)
-  		tl.to(this.ui.letter[1], 1.9, { x: '100%', ease: Expo.easeInOut }, 0)
-		tl.to(this.ui.infos, 1, { autoAlpha: 0, x: '30%' }, 0)
+		tl.to(this.ui.letter[0], 1.3, { x: '-100%', ease: Expo.easeInOut }, .15)
+  		tl.to(this.ui.letter[1], 1.6, { x: '100%', ease: Expo.easeInOut }, 0)
+		tl.to(this.ui.infos, .8, { autoAlpha: 0, x: '30%' }, 0)
   		tl.to(this.ui.infos.querySelector('span'), 1, { autoAlpha: 0, x: '-10%' }, 0)
-  		tl.staggerTo(this.ui.social, 1.1, { autoAlpha: 0, y: '60%' }, -.09, 0)
-  		!work && tl.to(this.ui.container, 1.9, { y: '100%', ease: Expo.easeInOut }, .8)
-  		!work && tl.to(this.ui.clip, 1.9, { y: '50%', ease: Expo.easeInOut }, .8)
-  		work && tl.to(this.ui.clip, 1.9, { y: '100%', ease: Expo.easeInOut }, .8)
+  		tl.staggerTo(this.ui.social, .9, { autoAlpha: 0, y: '60%' }, -.09, 0)
+  		!work && tl.to(this.ui.container, 1.6, { y: '100%', ease: Expo.easeInOut }, .8)
+  		!work && tl.to(this.ui.clip, 1.6, { y: '50%', ease: Expo.easeInOut }, .8)
+  		work && tl.to(this.ui.clip, 1.6, { y: '-100%', rotationZ: 45, ease: Expo.easeInOut }, .6)
   		tl.restart()
 	}
 	

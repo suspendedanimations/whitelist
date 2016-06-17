@@ -12,9 +12,9 @@ class Contact extends Default {
     }
     
     animateIn(req, done) {
-
-        classes.remove(config.$body, 'is-loading')
+        
         classes.add(config.$body, `is-${this.slug}`)
+        classes.remove(config.$body, 'is-loading')
         
         const tl = new TimelineMax({ paused: true, onComplete: done })
         tl.from(this.ui.letter, 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut })
@@ -33,11 +33,11 @@ class Contact extends Default {
         classes.remove(config.$body, `is-${this.slug}`)
         
         const tl = new TimelineMax({ paused: true, onComplete: done })
-        tl.set(this.page, { zIndex: 10 })
         tl.to(this.ui.letter, 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut })
         tl.staggerTo(this.ui.split.querySelectorAll('div > div'), 1.2, { y: '-110%', ease: Power4.easeOut }, .01, .3)
         tl.staggerTo(this.ui.stagger, 2.5, { autoAlpha: 0, ease: Expo.easeOut }, .02, 0)
         tl.staggerTo(this.ui.social, 1.1, { autoAlpha: 0, y: '60%' }, -.09, 0)
+        tl.to(this.page, 1, { autoAlpha: 0 })
         tl.restart()
     }
 }

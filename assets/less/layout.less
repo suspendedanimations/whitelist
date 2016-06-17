@@ -48,6 +48,14 @@ a {
 
 body {
 	background: black;
+
+    &.is-loading {
+        cursor: progress;
+        
+        a {
+            cursor: progress;
+        }
+    }
     
     > .logo {
         position: absolute;
@@ -129,7 +137,8 @@ Menu
         transition: transform .8s @easeOutExpo, background .8s @easeOutExpo;
         transform-origin: center center;
 
-        .is-home & {
+        .is-home &,
+        .is-work & {
             background: black;
         }
     }
@@ -160,11 +169,15 @@ nav {
     top: @130px;
     right: -@20px;
     transform: rotate(-90deg);
+
+    .is-section &:not(.info-nav) {
+        display: none;
+    }
     
     br {
         display: none;
     }
-
+    
     .vertical-center,
     .vertical-center .vertical-el {
         display: block;
@@ -340,6 +353,7 @@ Page Clip
     .absolute();
     .size(100%,100%);
     background: white;
+    overflow: hidden;
     transform: translate3d(0,100%,0);
     
     .logo {

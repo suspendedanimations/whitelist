@@ -11,10 +11,11 @@
         <div class="work-list ui-list">
             <div class="work-scroll ui-section">
                 {% for item in work %}
-                    <a href="/work/nike" class="work-item ui-stagger">
-                        <span>Verizon</span>
-                        <div class="intrinsic intrinsic--16-9 ui-viewport">
-                            <div class="el" style="background-image: url('{{ site.theme.uri }}/assets/images/stack/project-1.jpg');"></div>
+                    <a href="/work/{{ item.slug }}" class="work-item ui-stagger">
+                        <span>{{ item.title }}</span>
+                        <div class="intrinsic ui-viewport">
+                            {% set image = TimberImage(item.get_field('thumbnail')).src %}
+                            <div class="el" style="background-image: url('{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}');"></div>
                         </div>
                         <span class="ui-split" data-split="chars">› View project</span>
                     </a>
@@ -30,20 +31,11 @@
                     <div class="column col-6">&nbsp;</div>
                     <div class="column col-6">
                         <ul>
-                            <li><small>New</small><a href="/work/nike" class="_" data-video="160619373">Nike ID</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Verizon</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Lego</a></li>
-                            <li><small>New</small><a href="" class="_" data-video="160619373">Kara, Unofficial Star Wars shortfilm</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Olympus</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Google Glass</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Usher Video</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Whitelist</a></li>
-                            <li><small>New</small><a href="" class="_" data-video="160619373">Beyoncé</a></li>
-                            <li><small>New</small><a href="" class="_" data-video="160619373">Facebook</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Twitter Pro</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Love</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">New York State</a></li>
-                            <li><a href="/work/nike" class="_" data-video="160619373">Samsung</a></li>
+                            {% for item in work %}
+                                {% set image = TimberImage(item.get_field('thumbnail')).src %}
+                                {% set new = loop.index < 4 %}
+                                <li>{% if new %}<small>New</small>{% endif %}<a href="/work/{{ item.slug }}" data-image="{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}" class="_">{{ item.title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

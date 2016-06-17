@@ -8,8 +8,8 @@ export default class Jello {
     this.defaults = {};
     this.options = options;
     this.container = options.container;
-    this.imgWidth = options.image.width || 1920;
-    this.imgHeight = options.image.height || 960;
+    this.imgWidth = options.image.width || 400;
+    this.imgHeight = options.image.height || 268;
     this.imgRatio = this.imgHeight / this.imgWidth;
     this.winWidth = config.width;
     this.image = `${APP.THEME_URL}/assets/images/texture.jpg`;

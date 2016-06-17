@@ -50,7 +50,7 @@ class Default {
 
         this.debouncedResize()
     }
-
+    
     debounce() {}
 
     destroy() {

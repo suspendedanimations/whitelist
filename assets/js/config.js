@@ -31,7 +31,8 @@ const config = {
 	hasVideo: true,
 	hasBlendMode: 'backgroundBlendMode' in document.body.style,
 	
-	prefix: prefix('transform')
+	prefix: prefix('transform'),
+	transition: prefix('transition')
 }
 
 export default config
