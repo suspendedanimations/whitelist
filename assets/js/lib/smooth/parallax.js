@@ -13,7 +13,7 @@ class Parallax extends Smooth {
         
         this.dom.divs = utils.js.arrayFrom(opt.viewport)
         
-        this.threshold = 100
+        this.threshold = 200
         this.cache = null
     }
     
@@ -49,17 +49,17 @@ class Parallax extends Smooth {
             this.cache[this.cache.length] = bounds
         })
     }
-
+    
     run() {
         
-        this.dom.divs.forEach(this.inViewport)
+        if(!this.cache || this.resizing) return
 
+        this.dom.divs.forEach(this.inViewport)
+        
         super.run()
     }
 
     inViewport(el, index) {
-        
-        if(!this.cache || this.resizing) return
         
         const cache = this.cache[index]
         

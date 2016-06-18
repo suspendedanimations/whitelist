@@ -10,14 +10,15 @@
     <div class="work-content ui-layer">
         <div class="work-list ui-list">
             <div class="work-scroll ui-section">
-                {% for item in work %}
+                {% set items = normal|merge(music) %}
+                {% for item in items %}
                     <a href="/work/{{ item.slug }}" class="work-item ui-stagger">
                         <span>{{ item.title }}</span>
                         <div class="intrinsic ui-viewport">
                             {% set image = TimberImage(item.get_field('thumbnail')).src %}
                             <div class="el" style="background-image: url('{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}');"></div>
+                            <span class="ui-split" data-split="chars">› View project</span>
                         </div>
-                        <span class="ui-split" data-split="chars">› View project</span>
                     </a>
                 {% endfor %}
             </div>
@@ -31,7 +32,8 @@
                     <div class="column col-6">&nbsp;</div>
                     <div class="column col-6">
                         <ul>
-                            {% for item in work %}
+                            {% for item in items %}
+                                {{ dump(item) }}
                                 {% set image = TimberImage(item.get_field('thumbnail')).src %}
                                 {% set new = loop.index < 4 %}
                                 <li>{% if new %}<small>New</small>{% endif %}<a href="/work/{{ item.slug }}" data-image="{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}" class="_">{{ item.title }}</a></li>

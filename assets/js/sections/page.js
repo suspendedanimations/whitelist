@@ -30,7 +30,7 @@ class Page extends Default {
     addEvents() {
         
         this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
-        this.canvas = new Pixi({ container: this.ui.mask, image: { width: 1490, height: 1000 } })
+        this.canvas = new Pixi({ container: this.ui.mask })
         
         this.canvas.init()
         

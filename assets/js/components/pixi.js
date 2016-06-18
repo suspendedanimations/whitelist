@@ -8,8 +8,8 @@ export default class Jello {
     this.defaults = {};
     this.options = options;
     this.container = options.container;
-    this.imgWidth = options.image.width || 400;
-    this.imgHeight = options.image.height || 268;
+    this.imgWidth = options.image ? options.image.width : 1456;
+    this.imgHeight = options.image ? options.image.height : 939;
     this.imgRatio = this.imgHeight / this.imgWidth;
     this.winWidth = config.width;
     this.image = `${APP.THEME_URL}/assets/images/texture.jpg`;
@@ -33,8 +33,8 @@ export default class Jello {
 
     this.defaults = {
       transition: 1,
-      speed: 0.5,
-      dispScale: 200,
+      speed: .4,
+      dispScale: 250,
       dispX: true,
       dispY: true,
       count: 0
@@ -46,29 +46,24 @@ export default class Jello {
     this.createBackgrounds();
     this.createFilters();
     this.animateFilters();
-
+    
     this.container.appendChild(this.renderer.view);
   }
 
   animateFilters() {
 
-    this.now = window.performance.now();
+    this.displacementFilter.scale.x = this.settings.dispX ? this.settings.transition * this.settings.dispScale : 0;
+    this.displacementFilter.scale.y = this.settings.dispY ? this.settings.transition * (this.settings.dispScale + 10) : 0;
 
-    if((this.now - this.last) < 16.6) {
+    this.displacementSprite.x = Math.sin(this.settings.count * 0.15) * 200;
+    this.displacementSprite.y = Math.cos(this.settings.count * 0.13) * 200;
 
-      this.displacementFilter.scale.x = this.settings.dispX ? this.settings.transition * this.settings.dispScale : 0;
-      this.displacementFilter.scale.y = this.settings.dispY ? this.settings.transition * (this.settings.dispScale + 10) : 0;
+    this.displacementSprite.rotation = this.settings.count * 0.06;
 
-      this.displacementSprite.x = Math.sin(this.settings.count * 0.15) * 200;
-      this.displacementSprite.y = Math.cos(this.settings.count * 0.13) * 200;
+    this.settings.count += 0.05 * this.settings.speed;
 
-      this.displacementSprite.rotation = this.settings.count * 0.06;
-
-      this.settings.count += 0.05 * this.settings.speed;
-
-      this.renderer.render(this.stage);
-    }
-
+    this.renderer.render(this.stage);
+    
     this.last = this.now;
     this.rAF = requestAnimationFrame(this.animateFilters);
   }

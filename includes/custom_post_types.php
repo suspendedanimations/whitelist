@@ -26,6 +26,7 @@
             'description'   => 'Work posts',
             'public'        => true,
             'menu_position' => 5,
+            'taxonomies'    => array('category'),
             'supports'      => array( 'title'),
             'has_archive'   => true,
             'rewrite' => array('slug' => 'work', 'with_front' => false) // with_front: false overides default permalink /blog

@@ -68,7 +68,7 @@ body {
         transition: opacity 1.2s @easeOutExpo;
 
         svg {
-            transition: fill 1s @easeOutExpo;
+            transition: fill 1s @easeOutExpo .5s;
         }
 
         @media @mobile {
@@ -142,7 +142,7 @@ Menu
             background: black;
         }
     }
-
+    
     .has-menu-open & {
         div {
             background: white;
@@ -168,7 +168,14 @@ nav {
     z-index: 2;
     top: @130px;
     right: -@20px;
+    color: white;
     transform: rotate(-90deg);
+    
+    &.bottom {
+        top: initial;
+        bottom: 6.5rem;
+        right: .8rem;
+    }
 
     .is-section &:not(.info-nav) {
         display: none;

@@ -24,8 +24,6 @@ class Work extends Default {
     init(req, done) {
 
         super.init(req, done)
-        config.$body.style[config.transition] = 'background-color .8s'
-        requestAnimationFrame(() => config.$body.style.backgroundColor = 'white')
     }
     
     dataAdded(done) {
@@ -99,24 +97,12 @@ class Work extends Default {
     }
 
     animateGradient() {
+        
+        const patterns = [['#ddb6d5', '#c1b0e3'], ['#a0b8ea', '#9ad3d9'], ['#9dd5ce', '#c0e3ca'], ['#ddb6d5', '#b9aee7'], ['#e8b9c3', '#ffd9bb'], ['#a1b5ec', '#96e1cf']]
 
         this.gradient = new TimelineMax({ paused:true, repeatDelay: 1, repeat: -1, yoyo: true })
-
-        this.gradient.staggerTo('#gradient stop', 10, {
-          stopColor: '#a0b8ea',
-          cycle: {
-            stopColor: ['#ddb6d5', '#c1b0e3']
-          },
-          ease: Power3.easeInOut
-        }, .5, 0)
-
-        this.gradient.staggerTo('#gradient stop', 10, {
-          stopColor: '#a0b8ea',
-          cycle: {
-            stopColor: ['#a0b8ea', '#9ad3d9']
-          },
-          ease: Power3.easeInOut
-        }, .5)
+        
+        patterns.forEach((colors) => this.gradient.staggerTo('#gradient stop', 10, { cycle: { stopColor: colors }, ease: Power3.easeInOut }, .1))
 
         this.gradient.progress(1).progress(0).restart()
     }
@@ -190,9 +176,8 @@ class Work extends Default {
             done()
         }})
         tl.to(this.page, 1, { autoAlpha: 1 })
-        tl.from(this.ui.letter[0], 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut }, 0)
+        tl.from(this.ui.letter[0], 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut }, .5)
         tl.staggerFrom(this.ui.stagger, 1.9, { y: '100%', autoAlpha: 0, ease: Power4.easeInOut }, .06, 0)
-        tl.to(this.ui.list, 1.8, { rotationZ: 3, ease: Power4.easeInOut }, 0)
         tl.to(this.ui.bind, 1, { autoAlpha: 1 }, 1)
         tl.restart()
     }
@@ -201,21 +186,18 @@ class Work extends Default {
 
         const all = this.state
 
-        config.$body.style[config.transition] = ''
-        config.$body.style.backgroundColor = ''
-        
         all && this.closeAll()
-        // this.smooth && this.smooth.scrollTo(this.smooth.vars.bounding/2)
 
         classes.add(config.$body, 'is-loading')
-        classes.remove(config.$body, `is-${this.slug}`)
         classes.remove(this.page, 'has-hover')
 
-        const tl = new TimelineMax({ paused: true, onComplete: done })
+        const tl = new TimelineMax({ paused: true, onComplete: () => {
+            classes.remove(config.$body, `is-${this.slug}`)
+            done()
+        }})
         tl.set(this.page, { zIndex: 10 })
         this.smooth && tl.to(this.smooth.vars, 1.8, { target: this.smooth.vars.bounding/2, ease: Expo.easeInOut })
         tl.to(this.ui.letter, 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut }, 0)
-        tl.to(this.ui.list, .8, { rotationZ: 0, ease: Expo.easeInOut }, 0)
         tl.to(this.page, 1.1, { y: all ? '0%' : '100%', autoAlpha: all ? 0 : 1, ease: Expo.easeInOut }, 0)
         tl.restart()
     }

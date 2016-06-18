@@ -22,19 +22,19 @@ class Work extends Smooth {
 
         this.mousemove = this.mousemove.bind(this)
     }
-
+    
     addEvents() {
 
         super.addEvents()
         
-        on(document, 'mousemove', this.mousemove)
+        on(window, 'mousemove', this.mousemove)
     }
     
     removeEvents() {
 
         super.removeEvents()
-
-        off(document, 'mousemove', this.mousemove)
+        
+        off(window, 'mousemove', this.mousemove)
     }
 
     mousemove(e) {

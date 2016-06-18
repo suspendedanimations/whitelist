@@ -1,10 +1,20 @@
 .page-works {
-    background: white;
     perspective: 1200;
     overflow: hidden;
     .hidden();
-    // transform: translate3d(0,100%,0);
 
+    &:before {
+        content: '';
+        .fixed();
+        background: white;
+        transform: translate3d(0,100%,0);
+        transition: transform 1.3s @easeOutExpo .5s;
+
+        .is-work & {
+            transform: none;
+        }
+    }
+    
     .all-projects {
         position: fixed; top: 0; left: 0;
         font-size: @14px;
@@ -15,7 +25,7 @@
         .hidden();
 
         @media @mobile {
-            margin: @45px 0 0 @45px;
+            margin: @45px 0 0 @40px;
         }
 
         span {
@@ -44,15 +54,10 @@
             }
         }
     }
-    
-    .round--letters {
-        background: white;
-    }
 
     .letters--mask {
         left: -10px;
         background: none;
-        // background: url('../assets/images/gradient.jpg') center/cover no-repeat;
         mix-blend-mode: screen;
     }
 
@@ -186,18 +191,32 @@
         will-change: transform;
         // cursor: pointer;
 
-        span {
+        @media @mobile {
+            width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            float: none;
+        }
+
+        > span {
             display: block;
-            
-            &:first-of-type {
-                font-size: @14px;
-                font-weight: @regular;
-                margin-bottom: 5px;
-            }
-            
-            &:last-of-type {
+            font-size: @14px;
+            font-weight: @regular;
+            margin-bottom: 5px;
+            height: 19px;
+            overflow: hidden;
+        }
+
+        .intrinsic {
+            display: block;
+            background: white;
+            padding-bottom: 65%;
+            overflow: hidden;
+            z-index: 2;
+
+            > span {
                 position: absolute; top: 50%; left: 50%;
-                font-size: @50px;
+                font-size: @30px;
                 line-height: 1;
                 font-weight: @regular;
                 width: 100%;
@@ -217,14 +236,6 @@
                     display: none;
                 }
             }
-        }
-
-        .intrinsic {
-            display: block;
-            background: white;
-            padding-bottom: 65%;
-            overflow: hidden;
-            z-index: 2;
 
             .el {
                 background-position: center center;
@@ -266,13 +277,25 @@
         &:nth-child(even) {
             padding-left: @15px;
 
+            @media @mobile {
+                padding-left: 0;
+            }
+            
             .intrinsic {
                 &.top {
-                   transform: scale(1.03) rotateZ(-3deg) translate3d(10%,-10%,0);
+                    transform: scale(1.03) rotateZ(-3deg) translate3d(10%,-10%,0);
+
+                    @media @mobile {
+                        transform: translate3d(0,-10%,0);
+                    }
                 }
 
                 &.bottom {
                     transform: scale(1.05) rotateZ(-3deg) translate3d(10%,30%,0);
+
+                    @media @mobile {
+                        transform: translate3d(0,15%,0);
+                    }
                 }
             }
         }
@@ -280,13 +303,25 @@
         &:nth-child(odd) {
             padding-right: @15px;
 
+            @media @mobile {
+                padding-right: 0;
+            }
+
             .intrinsic {
                 &.top {
                     transform: scale(1.03) rotateZ(3deg) translate3d(-10%,-10%,0);
+
+                    @media @mobile {
+                        transform: translate3d(0,-10%,0);
+                    }
                 }
 
                 &.bottom {
                     transform: scale(1.05) rotateZ(4deg) translate3d(-10%,30%,0);
+                    
+                    @media @mobile {
+                        transform: translate3d(0,15%,0);
+                    }
                 }
             }
         }

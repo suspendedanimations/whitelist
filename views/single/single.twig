@@ -4,7 +4,8 @@
     {% if not isAJAX %}<section id="page-work-single" class="page page-work-single is-hidden">{% endif %}
     <div class="work-single">
         <div class="work-video ui-video">
-            <iframe class="ui-frame" src="//player.vimeo.com/video/{{ work.video_id }}?autoplay=1&amp;loop=true" frameborder="0"></iframe>
+            {% set src = work.video_source == 'vimeo' ? '//player.vimeo.com/video/' ~ work.video_id ~ '?autoplay=1&amp;loop=true' : 'http://www.youtube.com/embed/' ~ work.video_id ~ '?autoplay=1&loop=1&controls=0' %}
+            <iframe class="ui-frame" data-type="{{ work.video_source }}" src="{{ src }}" frameborder="0"/></iframe>
         </div>
         <div class="work-infos ui-layer">
             <div class="content device-content ui-scroll">
@@ -16,6 +17,11 @@
         <nav class="info-nav ui-worknav">
             <span class="ui-infos link">informations</span>
             <a href="/works" class="is-close link">close</a>
+        </nav>
+        <nav class="info-nav bottom ui-worknav">
+            <a href="{{ work.prev ? '/work/' ~ work.prev.slug : '/' }}"{% if not work.prev %} style="opacity:.2;pointer-events:none;"{% endif %} class="link">prev</a>
+            /
+            <a href="{{ work.next ? '/work/' ~ work.next.slug : '/' }}"{% if not work.next %} style="opacity:.2;pointer-events:none;"{% endif %} class="link">next</a>
         </nav>
         <div class="close-text ui-close">close</div>
     </div>

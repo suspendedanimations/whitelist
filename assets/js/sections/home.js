@@ -40,42 +40,10 @@ class Home extends Default {
 		done()
 	}
 
-	drawSVGs() {
-
-		const images = [{ align: 'left', src: `${APP.THEME_URL}/assets/images/svg/letter-left.svg` }, { align: 'right', src: `${APP.THEME_URL}/assets/images/svg/letter-right.svg` }]
-		const canvas = this.canvas = document.createElement('canvas')
-		const ctx = canvas.getContext('2d')
-		
-		canvas.width = config.width
-		canvas.height = config.height
-		
-		canvas.style.position = 'absolute'
-		canvas.style.zIndex = '100'
-
-		images.forEach((image, index) => {
-
-			const svg = new Image()
-			
-			svg.onload = () => {
-				
-				const sx = images[index].align === 'left' ? 0 : canvas.width - svg.width
-		        ctx.drawImage(svg, 0, 0, svg.width, svg.height, sx, 0, svg.width, canvas.height)
-			}
-
-			svg.src = images[index].src
-		})
-
-		document.body.appendChild(canvas)
-	}
-	
 	addEvents() {
 		
-		// this.drawSVGs()
-
-		this.canvas = new Pixi({ container: this.ui.mask, image: { width: 1490, height: 1000 } })
+		this.canvas = new Pixi({ container: this.ui.mask })
 		this.canvas.init()
-		
-		event.on(config.$body, 'mousewheel', this.goWorks)
 	}
 	
 	removeEvents() {
@@ -100,6 +68,7 @@ class Home extends Default {
 		
 		const tl = new TimelineMax({ paused: true, onComplete: () => {
 
+			event.on(config.$body, 'mousewheel', this.goWorks)
 			this.ui.intro.parentNode.removeChild(this.ui.intro)
 			done()
 		}})
@@ -133,9 +102,9 @@ class Home extends Default {
 		tl.to(this.ui.infos, .8, { autoAlpha: 0, x: '30%' }, 0)
   		tl.to(this.ui.infos.querySelector('span'), 1, { autoAlpha: 0, x: '-10%' }, 0)
   		tl.staggerTo(this.ui.social, .9, { autoAlpha: 0, y: '60%' }, -.09, 0)
-  		!work && tl.to(this.ui.container, 1.6, { y: '100%', ease: Expo.easeInOut }, .8)
-  		!work && tl.to(this.ui.clip, 1.6, { y: '50%', ease: Expo.easeInOut }, .8)
-  		work && tl.to(this.ui.clip, 1.6, { y: '-100%', rotationZ: 45, ease: Expo.easeInOut }, .6)
+  		tl.to(this.ui.container, 1.6, { y: '100%', ease: Expo.easeInOut }, .8)
+  		tl.to(this.ui.clip, 1.6, { y: '50%', ease: Expo.easeInOut }, .8)
+  		// work && tl.to(this.ui.clip, 1.6, { y: '-100%', rotationZ: 45, ease: Expo.easeInOut }, .6)
   		tl.restart()
 	}
 	
