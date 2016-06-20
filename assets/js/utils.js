@@ -99,7 +99,7 @@ const utils = {
 					const title = object.data.split(/(<title>|<\/title>)/ig)[2]
 					const inner = object.data.split(/(<body>|<\/body>)/ig)[2]
 					page.innerHTML = inner
-					document.title = title.replace(/&amp;/g, '&')
+					document.title = title.replace(/&amp;/g, '&').replace(/&#8211;/g, '&')
 					done()
 				}
 			})

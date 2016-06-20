@@ -10,17 +10,21 @@
     <div class="work-content ui-layer">
         <div class="work-list ui-list">
             <div class="work-scroll ui-section">
-                {% set items = normal|merge(music) %}
+                <div class="row ui-packery">
+                {% set items = branded|merge(music) %}
                 {% for item in items %}
-                    <a href="/work/{{ item.slug }}" class="work-item ui-stagger">
-                        <span>{{ item.title }}</span>
-                        <div class="intrinsic ui-viewport">
-                            {% set image = TimberImage(item.get_field('thumbnail')).src %}
-                            <div class="el" style="background-image: url('{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}');"></div>
-                            <span class="ui-split" data-split="chars">› View project</span>
+                    <a href="/work/{{ item.slug }}" class="work-item ui-viewport">
+                        <div class="ui-stagger">
+                            <span>{{ item.title }}</span>
+                            <div class="intrinsic">
+                                {% set image = TimberImage(item.get_field('thumbnail')).src %}
+                                <div class="el" style="background-image: url('{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}');"></div>
+                                <span class="ui-split" data-split="chars">› View project</span>
+                            </div>
                         </div>
                     </a>
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>
@@ -32,11 +36,19 @@
                     <div class="column col-6">&nbsp;</div>
                     <div class="column col-6">
                         <ul>
-                            {% for item in items %}
-                                {{ dump(item) }}
+                            {% for item in work %}
                                 {% set image = TimberImage(item.get_field('thumbnail')).src %}
                                 {% set new = loop.index < 4 %}
-                                <li>{% if new %}<small>New</small>{% endif %}<a href="/work/{{ item.slug }}" data-image="{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}" class="_">{{ item.title }}</a></li>
+                                <li>
+                                    {% if new %}
+                                        <small>New</small>
+                                    {% else %}
+                                        {% for term in item.terms('categories') %}
+                                            {% if term.slug == 'music' %}<small>{{ term.title }}</small>{% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <a href="/work/{{ item.slug }}" data-image="{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}" class="_">{{ item.title }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>

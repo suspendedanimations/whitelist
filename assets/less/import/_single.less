@@ -13,13 +13,31 @@
         }
     }
     
+    .work-title {
+        .absolute();
+        // margin: 0 0 @70px @50px;
+        background: rgba(0,0,0,.8);
+        .hidden();
+        
+        h1 {
+            display: block;
+            font: @bold @16px @font;
+            color: white;
+            text-align: center;
+
+            > div {
+                display: block;
+                overflow: hidden;
+            }
+        }
+    }
+    
     iframe {
         position: absolute; top: 50%;
         width: 100vw;
         min-height: 115vh;
         transform: translate3d(0,-50%,0);
         z-index: 1;
-        // pointer-events: none;
     }
     
     nav {

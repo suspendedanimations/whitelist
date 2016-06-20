@@ -4,8 +4,15 @@
     {% if not isAJAX %}<section id="page-work-single" class="page page-work-single is-hidden">{% endif %}
     <div class="work-single">
         <div class="work-video ui-video">
-            {% set src = work.video_source == 'vimeo' ? '//player.vimeo.com/video/' ~ work.video_id ~ '?autoplay=1&amp;loop=true' : 'http://www.youtube.com/embed/' ~ work.video_id ~ '?autoplay=1&loop=1&controls=0' %}
+            {% set src = work.video_source == 'vimeo' ? '//player.vimeo.com/video/' ~ work.video_id ~ '?autoplay=1&amp;loop=true' : 'http://www.youtube.com/embed/' ~ work.video_id ~ '?loop=1&autoplay=1&controls=0' %}
             <iframe class="ui-frame" data-type="{{ work.video_source }}" src="{{ src }}" frameborder="0"/></iframe>
+        </div>
+        <div class="work-title ui-title">
+            <div class="vertical-center">
+                <div class="vertical-el">
+                    <h1 class="ui-split" data-split="lines, words">{{ work.title }}</h1>
+                </div>
+            </div>
         </div>
         <div class="work-infos ui-layer">
             <div class="content device-content ui-scroll">

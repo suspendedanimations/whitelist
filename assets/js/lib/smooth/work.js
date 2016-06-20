@@ -13,28 +13,24 @@ class Work extends Smooth {
         this.dom.section = opt.section
         this.dom.layer = opt.layer
         
-        this.width = 500
-        this.margin = 50
-        this.length = opt.section.querySelectorAll('.work-item').length
-        
         this.client = { x: 0, y: 0 }
         this.lerped = { x: 0, y: 0 }
 
         this.mousemove = this.mousemove.bind(this)
     }
-    
+
     addEvents() {
 
         super.addEvents()
         
-        on(window, 'mousemove', this.mousemove)
+        !this.sniff.isSafari && on(window, 'mousemove', this.mousemove)
     }
     
     removeEvents() {
 
         super.removeEvents()
         
-        off(window, 'mousemove', this.mousemove)
+        !this.sniff.isSafari && off(window, 'mousemove', this.mousemove)
     }
 
     mousemove(e) {
@@ -46,19 +42,18 @@ class Work extends Smooth {
     run() {
         
         super.run()
-
+        
         this.lerped.x += (this.client.x - this.lerped.x) * .1
         this.lerped.y += (this.client.y - this.lerped.y) * .1
         
-        this.dom.layer.style.cssText = `${this.prefix}: translateY(${-this.lerped.x}px) rotateX(${-this.lerped.y}deg) rotateY(${-this.lerped.x}deg)`
-        this.dom.section.style.cssText = `${this.prefix}: translate3d(0,${-(this.vars.current).toFixed(2)}px,0); ${this.willchange}`
+        // this.dom.layer.style['will-change'] = this.dom.section.style['will-change'] = this.willchange
+        this.dom.layer.style[this.prefix] = `translate3d(0,${-this.lerped.x}px,0) rotateX(${-this.lerped.y}deg) rotateY(${-this.lerped.x}deg)`
     }
 
     resize() {
-
+                
         super.resize()
-        
-        this.vars.bounding = this.dom.section.parentNode.getBoundingClientRect().height - (this.vars.height / 4)
+        this.vars.bounding = this.dom.section.getBoundingClientRect().height - (config.height / 4)
     }
 }
 

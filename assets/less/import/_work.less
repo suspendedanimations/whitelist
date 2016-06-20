@@ -90,7 +90,6 @@
         }
 
         .letters--mask {
-            // top: -240px;
             background: url('../assets/images/gradient-2.jpg') left/cover no-repeat;
             mix-blend-mode: darken;
         }
@@ -107,12 +106,14 @@
                 font-size: @20px;
                 margin-bottom: @35px;
                 overflow: hidden;
+                white-space: nowrap;
                 perspective: 600;
 
                 small {
                     position: absolute;
+                    width: 100px; text-align: right;
                     font-size: @14px;
-                    margin: 3px 0 0 -45px;
+                    margin: 3px 0 0 -115px;
                     z-index: 2;
                     .hidden();
                 }
@@ -162,19 +163,19 @@
     .work-content {
         position: absolute;
         .size(100%,100%);
-        z-index: 2;
+        z-index: 5;
         transform-origin: center center;
     }
     
     .work-list {
-        position: absolute;
-        top: 45vh; left: 50%;
-        width: 55%;
-        transform: translate3d(-50%,0,0);
+        .absolute();
+        padding-top: 45vh;
+        max-width: 60%;
         transform-origin: top center;
 
         @media @mobile {
             width: 100%;
+            max-width: 100%;
         }
     }
 
@@ -198,7 +199,7 @@
             float: none;
         }
 
-        > span {
+        div > span {
             display: block;
             font-size: @14px;
             font-weight: @regular;
@@ -216,13 +217,13 @@
 
             > span {
                 position: absolute; top: 50%; left: 50%;
-                font-size: @30px;
+                font-size: @20px;
+                color: white;
                 line-height: 1;
                 font-weight: @regular;
                 width: 100%;
                 text-align: center;
-                // text-decoration: underline;
-                transform: translate3d(-50%,-50%,0) rotateZ(-90deg);
+                transform: translate3d(-50%,-50%,0);
                 pointer-events: none;
                 overflow: hidden;
                 z-index: 3;
@@ -245,31 +246,33 @@
                     display: block;
                     .absolute();
                     .size(100%,100%);
-                    background: #a1b6eb;
-                    background: -webkit-linear-gradient(left, #a1b6eb, #9ad2d9);
-                    background: -o-linear-gradient(right, #a1b6eb, #9ad2d9);
-                    background: -moz-linear-gradient(right, #a1b6eb, #9ad2d9);
-                    background: linear-gradient(to right, #a1b6eb, #9ad2d9);
-                    mix-blend-mode: screen;
+                    background: rgba(0,0,0,.8);
                     z-index: 2;
+                    opacity: 0;
                     transition: opacity 2.5s @easeOutExpo;
                 }
             }
+        }
 
-            &.in-viewport {
-                transform: none;
-                transition: transform 1.5s @easeOutExpo;
-
-                &:nth-child(even) {
+        &.in-viewport {
+            &:nth-child(even) {
+                .intrinsic {
                     transition-delay: .05s;
                 }
+            }
 
-                &:nth-child(odd) {
+            &:nth-child(odd) {
+                .intrinsic {
                     transition-delay: .1s;
                 }
+            }
+
+            .intrinsic {
+                transform: none;
+                transition: transform .8s @easeOutExpo;
 
                 .el:after {
-                    opacity: 0;
+                    // opacity: 0;
                 }
             }
         }
@@ -281,23 +284,26 @@
                 padding-left: 0;
             }
             
-            .intrinsic {
-                &.top {
-                    transform: scale(1.03) rotateZ(-3deg) translate3d(10%,-10%,0);
+            &.top {
+                .intrinsic {
+                    transform: scale(1.02) rotateZ(2deg) translate3d(5%,-5%,0);
 
                     @media @mobile {
                         transform: translate3d(0,-10%,0);
                     }
                 }
+            }
 
-                &.bottom {
-                    transform: scale(1.05) rotateZ(-3deg) translate3d(10%,30%,0);
+            &.bottom {
+                .intrinsic {
+                    transform: scale(1.02) rotateZ(-2deg) translate3d(5%,15%,0);
 
                     @media @mobile {
                         transform: translate3d(0,15%,0);
                     }
                 }
             }
+        
         }
 
         &:nth-child(odd) {
@@ -307,17 +313,19 @@
                 padding-right: 0;
             }
 
-            .intrinsic {
-                &.top {
-                    transform: scale(1.03) rotateZ(3deg) translate3d(-10%,-10%,0);
+            &.top {
+                .intrinsic {
+                   transform: scale(1.02) rotateZ(-2deg) translate3d(-5%,-5%,0);
 
                     @media @mobile {
                         transform: translate3d(0,-10%,0);
-                    }
+                    } 
                 }
+            }
 
-                &.bottom {
-                    transform: scale(1.05) rotateZ(4deg) translate3d(-10%,30%,0);
+            &.bottom {
+                .intrinsic {
+                    transform: scale(1.02) rotateZ(2deg) translate3d(-5%,15%,0);
                     
                     @media @mobile {
                         transform: translate3d(0,15%,0);

@@ -38,6 +38,8 @@ class Section extends Default {
         this.type = this.ui.frame.getAttribute('data-type')
         this.video = this.type === 'vimeo' ? player(this.ui.frame) : undefined
 
+        this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
+
         this.scroll = new Smooth({
             extends: true,
             noscrollbar: true,
@@ -111,12 +113,12 @@ class Section extends Default {
         tl.to(this.ui.layer, 1, { autoAlpha: 0 }, 0)
         tl.to(this.ui.video, 1.3, { scale: 1, ease: Expo.easeInOut }, 0)
         tl.restart()
-
+        
         this.scroll.off()
     }
     
     moveClose(e) {
-
+        
         TweenLite.to(this.ui.close, 2, { autoAlpha: 1, delay: 1 })
         TweenLite.to(this.ui.close, .6, { x: e.clientX + 15, y: e.clientY })
     }
@@ -131,11 +133,16 @@ class Section extends Default {
         const tl = new TimelineMax({ paused: true, onComplete: done })
         !single && tl.from(this.page, 2, { autoAlpha: 0, ease: Expo.easeInOut })
         tl.to(this.ui.video, 5, { scale: 1, autoAlpha: 1, ease: Expo.easeInOut }, 0)
+        if(single) {
+            tl.to(this.ui.title, .6, { autoAlpha: 1 }, 0)
+            tl.staggerFrom(this.split.words, 1.3, { autoAlpha: 0, ease: Expo.easeInOut, clearProps: 'transform' }, .15, 0)
+            tl.to(this.ui.title, 1, { autoAlpha: 0 }, 3)
+        }
         tl.restart()
     }
     
 	animateOut(req, done) {
-
+        
         const single = req.route.substring(0, 6) == '/work/'
 
         classes.add(config.$body, 'is-loading')

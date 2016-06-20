@@ -1,7 +1,8 @@
 import config from 'config'
 import utils from 'utils'
 import classes from 'dom-classes'
-import Smooth from './default'
+import Smooth from 'smooth-scrolling'
+import sniffer from 'sniffer'
 
 class Parallax extends Smooth {
 
@@ -15,6 +16,7 @@ class Parallax extends Smooth {
         
         this.threshold = 200
         this.cache = null
+        this.sniff = sniffer.getInfos()
     }
     
     createExtraBound() {
@@ -29,7 +31,7 @@ class Parallax extends Smooth {
 
         super.resize()
     }
-
+    
     getCache() {
         
         this.cache = []
@@ -37,19 +39,21 @@ class Parallax extends Smooth {
         this.dom.divs.forEach((el, index) => {
 
             el.style.transform = ''
+
+            this.sniff.isFirefox && classes.add(el, 'in-viewport')
             
+            const current = this.vars.target
             const bounding = el.getBoundingClientRect()
             const bounds = {
                 el: el,
-                top: bounding.top + this.vars.current,
-                bottom: bounding.bottom + this.vars.current,
-                speed: el.getAttribute('data-speed') || 0
+                top: bounding.top + current,
+                bottom: bounding.bottom + current
             }
 
             this.cache[this.cache.length] = bounds
         })
     }
-    
+      
     run() {
         
         if(!this.cache || this.resizing) return
@@ -62,17 +66,28 @@ class Parallax extends Smooth {
     inViewport(el, index) {
         
         const cache = this.cache[index]
-        
         const current = this.vars.current
-        const transform = current * cache.speed
-        const top = Math.round(cache.top - current) + transform
-        const bottom = Math.round(cache.bottom - current) - transform
+        const top = Math.round(cache.top - current)
+        const bottom = Math.round(cache.bottom - current)
         const inview = bottom > this.threshold * -1 && top < this.vars.height + this.threshold
         const dir = top > 0
-        
-        inview ? (classes.add(el, 'in-viewport'), classes.remove(el, 'top'), classes.remove(el, 'bottom')) : (classes.remove(el, 'in-viewport'), dir === false ? classes.add(el, 'top') : classes.add(el, 'bottom'))
-        
-        el.style[this.prefix] = cache.speed != 0 ? this.getTransform(transform) : ''
+
+        if(inview) {
+            
+            el.style.opacity = ''
+            el.style['pointer-events'] = ''
+            el.style[this.prefix] = `translate3d(0,${(current * -1).toFixed(2)}px,0)`
+
+            classes.add(el, 'in-viewport'), classes.remove(el, 'top'), classes.remove(el, 'bottom')
+
+        } else {
+
+            el.style.opacity = '0'
+            el.style['pointer-events'] = 'none'
+            el.style[this.prefix] = ''
+
+            classes.remove(el, 'in-viewport'), dir === false ? classes.add(el, 'top') : classes.add(el, 'bottom')
+        }
     }
     
     destroy() {

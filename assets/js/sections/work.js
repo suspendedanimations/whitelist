@@ -5,6 +5,7 @@ import event from 'dom-events'
 import Default from './default'
 import Normal from 'smooth-scrolling'
 import Smooth from '../lib/smooth/work'
+import Packery from 'packery'
 import player from '../lib/player.min.js'
 
 class Work extends Default {
@@ -22,7 +23,7 @@ class Work extends Default {
     }
     
     init(req, done) {
-
+        
         super.init(req, done)
     }
     
@@ -40,17 +41,18 @@ class Work extends Default {
 
         done()
     }
-
+    
     addScroll() {
-
+        
         this.smooth = new Smooth({
             extends: true,
+            vs: { firefoxMultiplier: 20 },
             noscrollbar: true,
             section: this.ui.section,
             layer: this.ui.layer,
             viewport: this.ui.viewport
         })
-
+        
         this.smooth.init()
     }
 
@@ -170,20 +172,19 @@ class Work extends Default {
         classes.add(config.$body, `is-${this.slug}`)
         
         const tl = new TimelineMax({ paused: true, onComplete: () => {
-            this.smooth.resize()
             classes.remove(config.$body, 'is-loading')
             classes.add(this.page, 'has-hover')
             done()
         }})
         tl.to(this.page, 1, { autoAlpha: 1 })
-        tl.from(this.ui.letter[0], 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut }, .5)
-        tl.staggerFrom(this.ui.stagger, 1.9, { y: '100%', autoAlpha: 0, ease: Power4.easeInOut }, .06, 0)
+        tl.from(this.ui.letter[0], 2.5, { scale: 1.6, x: '-100%', ease: Expo.easeInOut }, .6)
+        tl.staggerFrom(this.ui.stagger, 1.1, { y: '100%', autoAlpha: 0, ease: Power4.easeInOut, clearProps: 'all' }, .06, .25)
         tl.to(this.ui.bind, 1, { autoAlpha: 1 }, 1)
         tl.restart()
     }
     
     animateOut(req, done) {
-
+        
         const all = this.state
 
         all && this.closeAll()
