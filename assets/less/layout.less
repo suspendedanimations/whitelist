@@ -185,6 +185,10 @@ nav {
 
     .is-section &:not(.info-nav) {
         display: none;
+
+        @media @mobile {
+            display: block;
+        }
     }
     
     br {
@@ -217,9 +221,20 @@ nav {
             display: table-cell;
         }
 
-        .has-menu-open & {
-            opacity: 1;
-            pointer-events: auto;
+        // .has-menu-open & {
+        //     &:not(.info-nav) {
+        //         opacity: 1;
+        //         pointer-events: auto;
+        //     }
+        // }
+
+        &.info-nav {
+            display: none;
+        }
+
+        &:not(.info-nav) {
+            display: block;
+
         }
     }
 
@@ -286,9 +301,14 @@ nav {
         }
     }
     
-    .is-section &:not(.info-nav) {
+    .is-section:not(.has-menu-open) &:not(.info-nav) {
         opacity: 0;
         pointer-events: none;
+    }
+    
+    .has-menu-open &:not(.info-nav) {
+        opacity: 1;
+        pointer-events: auto;
     }
 
     .menu() {
