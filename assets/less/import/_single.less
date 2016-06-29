@@ -35,9 +35,18 @@
     iframe {
         position: absolute; top: 50%;
         width: 100vw;
-        min-height: 115vh;
+        min-height: 150vh;
+        height: auto;
         transform: translate3d(0,-50%,0);
-        z-index: 1;
+        z-index: 20;
+        
+        @media @mobile {
+            min-height: 55%;
+        }
+
+        @media @tablet {
+            min-height: 55%;
+        }
     }
     
     nav {
