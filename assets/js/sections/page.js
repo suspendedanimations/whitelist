@@ -19,7 +19,7 @@ class Page extends Default {
     }
     
     dataAdded(done) {
-        
+
         super.dataAdded()
         
         this.addEvents()
@@ -28,13 +28,19 @@ class Page extends Default {
     }
     
     addEvents() {
-        
+                
         this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
-        this.canvas = new Pixi({ container: this.ui.mask })
-        
-        this.canvas.init()
+
+        this.hasCanvas && this.initCanvas()
         
         this.initSmooth()
+    }
+
+    initCanvas() {
+
+        this.canvas = new Pixi({ container: this.ui.mask })
+        
+        this.canvas.init()     
     }
 
     initSmooth() {
@@ -65,14 +71,12 @@ class Page extends Default {
     }
     
     destroy(req, done) {
-
-        console.log('page destroy')
-        
+                
         super.destroy()
 
         this.smooth && this.smooth.destroy()
-        
-        this.canvas && this.canvas.destroy()
+         
+        this.hasCanvas && this.canvas && this.canvas.destroy()
 
         this.page.parentNode.removeChild(this.page)
         

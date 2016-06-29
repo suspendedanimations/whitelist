@@ -8,11 +8,11 @@ export default class Jello {
     this.defaults = {};
     this.options = options;
     this.container = options.container;
-    this.imgWidth = options.image ? options.image.width : 1456;
-    this.imgHeight = options.image ? options.image.height : 939;
+    this.imgWidth = options.image ? options.image.width : 800;
+    this.imgHeight = options.image ? options.image.height : 516;
     this.imgRatio = this.imgHeight / this.imgWidth;
     this.winWidth = config.width;
-    this.image = `${APP.THEME_URL}/assets/images/texture.jpg`;
+    this.image = `${APP.THEME_URL}/assets/images/texture-min.jpg`;
     this.renderer = PIXI.autoDetectRenderer(this.winWidth, (this.winWidth * this.imgRatio) );
     this.stage = new PIXI.Container();
     this.imgContainer = new PIXI.Container();

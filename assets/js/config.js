@@ -1,6 +1,8 @@
-import domselect from 'dom-select'
 import utils from './utils'
+import domselect from 'dom-select'
+import classes from 'dom-classes'
 import prefix from 'prefix'
+import sniffer from 'sniffer'
 
 const config = {
 	
@@ -12,7 +14,8 @@ const config = {
 		home: '/home',
 		work: '/works'
 	},
-	
+
+	$html: domselect('html'),
 	$body: document.body,
 	$view: domselect('#js-view'),
 	$logo: domselect('.logo'),
@@ -27,7 +30,7 @@ const config = {
 	firefoxMultiplier: 50,
 	ease: .1,
 	
-	isMobile: false,
+	isMobile: sniffer.isPhone,
 	hasVideo: true,
 	hasBlendMode: 'backgroundBlendMode' in document.body.style,
 	
