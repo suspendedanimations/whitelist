@@ -176,6 +176,7 @@
         @media @mobile {
             width: 100%;
             max-width: 100%;
+            padding-top: 35vh;
         }
     }
 
@@ -189,23 +190,14 @@
         float: left;
         .size(50%,100%);
         margin-bottom: @30px;
-        will-change: transform;
+        // will-change: transform;
         // cursor: pointer;
 
         @media @mobile {
-            width: 320px;
+            width: 300px;
             margin-left: auto;
             margin-right: auto;
             float: none;
-        }
-
-        div > span {
-            display: block;
-            font-size: @14px;
-            font-weight: @regular;
-            margin-bottom: 5px;
-            height: 19px;
-            overflow: hidden;
         }
 
         .intrinsic {
@@ -219,18 +211,79 @@
                 position: absolute; top: 50%; left: 50%;
                 font-size: @20px;
                 color: white;
-                line-height: 1;
+                line-height: 1.5;
                 font-weight: @regular;
-                width: 100%;
+                width: 80%;
                 text-align: center;
                 transform: translate3d(-50%,-50%,0);
                 pointer-events: none;
                 overflow: hidden;
                 z-index: 3;
 
-                > div {
+                > div > div {
                     transform: translate3d(0,115%,0);
                     transition: transform .9s @easeOutExpo;
+
+                    &:nth-child(1) {
+                        transition-delay: .05s;
+                        transition-duration: 1.75s;
+                    }
+                    &:nth-child(2) {
+                        transition-delay: .1s;
+                        transition-duration: 1.7s;
+                    }
+                    &:nth-child(3) {
+                        transition-delay: .15s;
+                        transition-duration: 1.65s;
+                    }
+                    &:nth-child(4) {
+                        transition-delay: .2s;
+                        transition-duration: 1.6s;
+                    }
+                    &:nth-child(5) {
+                        transition-delay: .25s;
+                        transition-duration: 1.55s;
+                    }
+                    &:nth-child(6) {
+                        transition-delay: .3s;
+                        transition-duration: 1.5s;
+                    }
+                    &:nth-child(7) {
+                        transition-delay: .35s;
+                        transition-duration: 1.45s;
+                    }
+                    &:nth-child(8) {
+                        transition-delay: .4s;
+                        transition-duration: 1.4s;
+                    }
+                    &:nth-child(9) {
+                        transition-delay: .45s;
+                        transition-duration: 1.35s;
+                    }
+                    &:nth-child(10) {
+                        transition-delay: .5s;
+                        transition-duration: 1.3s;
+                    }
+                    &:nth-child(11) {
+                        transition-delay: .55s;
+                        transition-duration: 1.25s;
+                    }
+                    &:nth-child(12) {
+                        transition-delay: .6s;
+                        transition-duration: 1.2s;
+                    }
+                    &:nth-child(13) {
+                        transition-delay: .65s;
+                        transition-duration: 1.15s;
+                    }
+                    &:nth-child(14) {
+                        transition-delay: .7s;
+                        transition-duration: 1.1s;
+                    }
+                    &:nth-child(15) {
+                        transition-delay: .75s;
+                        transition-duration: 1.05s;
+                    }
                 }
 
                 @media @mobile {
@@ -240,6 +293,8 @@
 
             .el {
                 background-position: center center;
+                transform: scale3d(1.2,1.2,1.2);
+                transition: transform 5s ease-out;
 
                 &:after {
                     content: '';
@@ -338,11 +393,15 @@
     .is-desktop &.has-hover {
         .work-item {
             &:hover {
-                .intrinsic .el:after {
-                    opacity: 1;
+                .intrinsic .el {
+                    transform: none;
+
+                    &:after {
+                        opacity: 1;
+                    }
                 }
-                span:last-of-type {
-                    > div {
+                span {
+                    > div > div {
                         transform: none;
                     }
                 }

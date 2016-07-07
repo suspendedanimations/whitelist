@@ -13,13 +13,13 @@
                 <div class="row ui-packery">
                 {% set items = branded|merge(music) %}
                 {% for item in items %}
-                    <a href="/work/{{ item.slug }}" class="work-item ui-viewport">
+                    <a href="/work/{{ item.slug }}" class="work-item ui-viewport"{% if loop.index0 is odd %} data-speed="1.5"{% endif %}>
                         <div class="ui-stagger">
-                            <span>{{ item.title }}</span>
+                            {# <span>{{ item.title }}</span> #}
                             <div class="intrinsic">
                                 {% set image = TimberImage(item.get_field('thumbnail')).src %}
                                 <div class="el" style="background-image: url('{{ image ? image : site.theme.uri~'/assets/images/stack/project-1.jpg' }}');"></div>
-                                <span class="ui-split" data-split="chars">› View project</span>
+                                <span class="ui-split" data-split="lines, words">{{ item.title }}</span>
                             </div>
                         </div>
                     </a>

@@ -46,7 +46,7 @@ class Work extends Default {
         
         this.smooth = new Smooth({
             extends: true,
-            vs: { firefoxMultiplier: 20 },
+            vs: { firefoxMultiplier: 20, touchMultiplier: 2.5 },
             noscrollbar: true,
             section: this.ui.section,
             layer: this.ui.layer,

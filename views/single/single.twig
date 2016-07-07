@@ -24,14 +24,14 @@
                 {{ work.credits }}
             </div>
         </div>
-        <nav class="info-nav ui-worknav">
+        <nav class="info-nav nav-project ui-worknav">
             <span class="ui-infos link">informations</span>
             <a href="/works" class="is-close link">close</a>
         </nav>
         <nav class="info-nav bottom ui-worknav">
-            <a href="{{ work.prev ? '/work/' ~ work.prev.slug : '/' }}"{% if not work.prev %} style="opacity:.2;pointer-events:none;"{% endif %} class="link">prev</a>
-            /
             <a href="{{ work.next ? '/work/' ~ work.next.slug : '/' }}"{% if not work.next %} style="opacity:.2;pointer-events:none;"{% endif %} class="link">next</a>
+            /
+            <a href="{{ work.prev ? '/work/' ~ work.prev.slug : '/' }}"{% if not work.prev %} style="opacity:.2;pointer-events:none;"{% endif %} class="link">prev</a>
         </nav>
         <div class="close-text ui-close">close</div>
     </div>

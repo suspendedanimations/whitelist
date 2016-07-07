@@ -242,12 +242,57 @@ nav {
         }
     }
 
-    @media @mobile {
-        .mobile();
+    .menu() {
+        a.link,
+        span {
+            font-size: @80px;
+            color: white!important;
+            opacity: 0;
+            transform: translate3d(0,30%,0);
+            
+            &:before {
+                height: 5px;
+                transform: none;
+                background: white!important;
+            }
+
+            .has-menu-open & {
+                opacity: 1;
+                transform: none;
+                transition: transform .8s @easeOutExpo, opacity .6s @easeOutExpo;
+
+                &:first-of-type {
+                    transition-delay: 0s;   
+                }
+                &:nth-child(2) {
+                    transition-delay: .1s;
+                }
+                &:last-of-type {
+                    transition-delay: .2s;
+                }
+            }
+        }
     }
 
-    @media @tablet {
-        .mobile();
+    &.nav-project {
+        @media @mobile {
+            right: initial;
+            left: 0; top: 0;
+            transform: none;
+            margin: @45px 0 0 @45px;
+        }
+    }
+
+    &:not(.nav-project) {
+        @media @mobile {
+            .mobile();
+            .menu();
+        }
+
+        @media @tablet {
+            .mobile();
+            .menu();
+        }
     }
 
     a.link,
@@ -313,46 +358,6 @@ nav {
     .has-menu-open &:not(.info-nav) {
         opacity: 1;
         pointer-events: auto;
-    }
-
-    .menu() {
-        a.link,
-        span {
-            font-size: @80px;
-            color: white!important;
-            opacity: 0;
-            transform: translate3d(0,30%,0);
-            
-            &:before {
-                height: 5px;
-                transform: none;
-                background: white!important;
-            }
-
-            .has-menu-open & {
-                opacity: 1;
-                transform: none;
-                transition: transform .8s @easeOutExpo, opacity .6s @easeOutExpo;
-
-                &:first-of-type {
-                    transition-delay: 0s;   
-                }
-                &:nth-child(2) {
-                    transition-delay: .1s;
-                }
-                &:last-of-type {
-                    transition-delay: .2s;
-                }
-            }
-        }
-    }
-
-    @media @mobile {
-        .menu();
-    }
-
-    @media @tablet {
-        .menu();
     }
 }
 
@@ -527,6 +532,10 @@ Masking Letters
         position: absolute; top: -@20px; left: -@350px;
         height: 75vh; max-height: 500px;
         transform: none;
+
+        @media @mobile {
+            max-height: 320px;
+        }
 
         path {
             fill: white;

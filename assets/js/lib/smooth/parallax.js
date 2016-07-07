@@ -38,7 +38,9 @@ class Parallax extends Smooth {
 
         this.dom.divs.forEach((el, index) => {
 
-            el.style.transform = ''
+            el.style.opacity = ''
+            el.style['pointer-events'] = ''
+            el.style[this.prefix] = ''
 
             this.sniff.isFirefox && classes.add(el, 'in-viewport')
             
@@ -46,10 +48,10 @@ class Parallax extends Smooth {
             const bounding = el.getBoundingClientRect()
             const bounds = {
                 el: el,
-                top: bounding.top + current,
-                bottom: bounding.bottom + current
+                top: bounding.top,
+                bottom: bounding.bottom
             }
-
+            
             this.cache[this.cache.length] = bounds
         })
     }

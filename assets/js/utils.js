@@ -92,14 +92,14 @@ const utils = {
 			
 			const slug = utils.biggie.getSlug(req, options)
 			const page = utils.biggie.createPage(req, slug)
-
+			
 			ajax.get(`/${slug}`, {
 				success: (object) => {
 					
 					const title = object.data.split(/(<title>|<\/title>)/ig)[2]
 					const inner = object.data.split(/(<body>|<\/body>)/ig)[2]
 					page.innerHTML = inner
-					document.title = title.replace(/&amp;/g, '&').replace(/&#8211;/g, '&')
+					document.title = title.replace(/&amp;/g, '&').replace(/&#8211;/g, '–')
 					done()
 				}
 			})

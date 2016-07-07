@@ -15,7 +15,7 @@ class Work extends Smooth {
         
         this.client = { x: 0, y: 0 }
         this.lerped = { x: 0, y: 0 }
-
+        
         this.mousemove = this.mousemove.bind(this)
     }
 
