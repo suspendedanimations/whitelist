@@ -73,7 +73,7 @@ class Work extends Default {
     splitText() {
 
         this.split = []
-
+        
         utils.js.arrayFrom(this.ui.split).forEach((el, index) => {
 
             this.split[this.split.index] = new SplitText(el, { type: el.getAttribute('data-split') })

@@ -5,7 +5,7 @@ see https://github.com/bigwheel-framework/documentation/blob/master/routes-defin
 module.exports = {
 	'/': require('./sections/home'),
 	'/home': { section: require('./sections/home') },
-	'/works': { section: require('./sections/work') },
+	'/work': { section: require('./sections/work') },
     '/work/:id': { section: require('./sections/section') },
     '/about': { section: require('./sections/about') },
     '/contact': { section: require('./sections/contact') },

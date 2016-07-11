@@ -30,8 +30,10 @@ class Home extends Default {
 	dataAdded(done) {
 		
 		super.dataAdded()
-
-		this.ui.video.src = `${APP.THEME_URL}/assets/videos/loader-${Math.floor(Math.random()*3)+1}.mp4`
+		
+		const random = Math.floor(Math.random()*APP.VIDEOS.length)
+		
+		this.ui.video.src = APP.VIDEOS[random].video
 		this.ui.video.load()
 		this.ui.video.play()
 		
@@ -55,7 +57,7 @@ class Home extends Default {
 	
 	goWorks() {
 		
-		framework.go('/works')
+		framework.go('/work')
 	}
 	
 	animateIn(req, done) {

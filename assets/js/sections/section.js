@@ -37,6 +37,26 @@ class Section extends Default {
 
         this.type = this.ui.frame.getAttribute('data-type')
         this.video = this.type === 'vimeo' ? player(this.ui.frame) : undefined
+        
+        // if(this.type === 'vimeo') {
+
+        //     console.log('vimeo, adding events')
+
+        //     this.video.addEvent('ready', () => {
+            
+        //         console.log('vimeo ready')
+
+        //         this.video.addEvent('finish', () => {
+
+        //             console.warn('finished')
+
+        //             const next = this.ui.next.getAttribute('href')
+        //             const prev = this.ui.prev.getAttribute('href')
+        //             const href = next !== '/' ? next : prev
+        //             framework.go(href)
+        //         })
+        //     })
+        // }
 
         this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
 
