@@ -1,10 +1,20 @@
 .work-single {
+    // display: block;
+    // position: relative;
+
+    &.afk {
+        .info-nav {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
     .work-video {
         .absolute();
         .size(100%,100%);
         overflow: hidden;
         transform: scale3d(.8,.8,.8);
-        .hidden();
+        opacity: 0;
 
         &:after {
             content: '';
@@ -33,6 +43,7 @@
     }
     
     iframe {
+        display: block;
         position: absolute; top: 50%;
         width: 100vw;
         min-height: 150vh;

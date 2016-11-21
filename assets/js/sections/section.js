@@ -1,9 +1,9 @@
 import framework from 'framework'
 import config from 'config'
 import utils from 'utils'
-import gsap from 'gsap';
-import classes from 'dom-classes';
-import Default from './default';
+import gsap from 'gsap'
+import classes from 'dom-classes'
+import Default from './default'
 import event from 'dom-events'
 import create from 'dom-create-element'
 import player from '../lib/player.min.js'
@@ -17,11 +17,15 @@ class Section extends Default {
 
         this.slug = 'section'
         this.state = { open: false }
+        this.event = { x: 0, y: 0 }
         this.type = undefined
-        
+        this.moving = true
+        this.s = null
+
         this.showInfos = this.showInfos.bind(this)
         this.hideInfos = this.hideInfos.bind(this)
         this.moveClose = this.moveClose.bind(this)
+        this.onMouseMove = this.onMouseMove.bind(this)
     }
 
     init(req, done) {
@@ -35,30 +39,51 @@ class Section extends Default {
 
         super.dataAdded()
 
-        this.type = this.ui.frame.getAttribute('data-type')
-        this.video = this.type === 'vimeo' ? player(this.ui.frame) : undefined
-        
-        // if(this.type === 'vimeo') {
+        this.addSplit()
+        this.addScroll()
+        this.addEvents()
+        this.loadVideo(done)
+    }
 
-        //     console.log('vimeo, adding events')
+    loadVideo(done) {
 
-        //     this.video.addEvent('ready', () => {
+        event.once(this.ui.frame, 'load', (e) => {
             
-        //         console.log('vimeo ready')
+            this.type = this.ui.frame.getAttribute('data-type')
+            this.video = this.type === 'vimeo' ? player(this.ui.frame) : undefined
+            
+            this.addVideoEvents()
+            
+            done()
+        })
+        
+        this.ui.frame.src = this.ui.frame.getAttribute('data-src')
+    }
 
-        //         this.video.addEvent('finish', () => {
+    addVideoEvents() {
 
-        //             console.warn('finished')
+        if(this.type === 'vimeo') {
 
-        //             const next = this.ui.next.getAttribute('href')
-        //             const prev = this.ui.prev.getAttribute('href')
-        //             const href = next !== '/' ? next : prev
-        //             framework.go(href)
-        //         })
-        //     })
-        // }
+            console.log('hey, we are using vimeo, so im adding events')
 
-        this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
+            this.video.addEvent('ready', () => {
+            
+                console.log('video is ready')
+                
+                this.video.addEvent('finish', () => {
+
+                    console.warn('video is finished')
+
+                    const next = this.ui.next.getAttribute('href')
+                    const prev = this.ui.prev.getAttribute('href')
+                    const href = next !== '/' ? next : prev
+                    framework.go(href)
+                })
+            })
+        }
+    }
+
+    addScroll() {
 
         this.scroll = new Smooth({
             extends: true,
@@ -66,23 +91,26 @@ class Section extends Default {
             section: this.ui.scroll,
             ease: .1
         })
-
+        
         this.scroll.init()
         this.scroll.off()
+    }
 
-        this.addEvents()
+    addSplit() {
 
-        done()
+        this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
     }
 
     addEvents() {
 
         event.on(this.ui.infos, 'click', this.showInfos)
+        event.on(document, 'mousemove', this.onMouseMove)
     }
 
     removeEvents() {
 
         event.off(this.ui.infos, 'click', this.showInfos)
+        event.off(document, 'mousemove', this.onMouseMove)
     }
 
     setState() {
@@ -142,6 +170,28 @@ class Section extends Default {
         TweenLite.to(this.ui.close, 2, { autoAlpha: 1, delay: 1 })
         TweenLite.to(this.ui.close, .6, { x: e.clientX + 15, y: e.clientY })
     }
+
+    onMouseMove(e) {
+
+        if(!this.moving) {
+
+            clearTimeout(this.s)
+
+            classes.has(this.page, 'afk') && classes.remove(this.page, 'afk')
+
+            this.moving = true
+
+            this.s = setTimeout(() => {
+
+                this.moving = false
+
+                classes.add(this.page, 'afk')
+
+                console.log('setTimeout', this.moving)
+
+            }, 2000)
+        }
+    }
     
     animateIn(req, done) {
 
@@ -149,10 +199,10 @@ class Section extends Default {
         
         classes.add(config.$body, `is-${this.slug}`)
 		classes.remove(config.$body, 'is-loading')
-
+        
         const tl = new TimelineMax({ paused: true, onComplete: done })
-        !single && tl.from(this.page, 2, { autoAlpha: 0, ease: Expo.easeInOut })
-        tl.to(this.ui.video, 5, { scale: 1, autoAlpha: 1, ease: Expo.easeInOut }, 0)
+        !single && tl.from(this.page, 2, { autoAlpha: 0, ease: Expo.easeInOut }, 0)
+        tl.to(this.ui.video, 3, { scale: 1, opacity: 1, ease: Expo.easeInOut }, 0)
         if(single) {
             tl.to(this.ui.title, .6, { autoAlpha: 1 }, 0)
             tl.staggerFrom(this.split.words, 1, { autoAlpha: 0, ease: Expo.easeInOut, clearProps: 'transform' }, .1, 0)
