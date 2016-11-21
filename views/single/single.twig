@@ -28,10 +28,13 @@
             <span class="ui-infos link">information</span>
             <a href="/work" class="is-close link">close</a>
         </nav>
+        {# {% set list = branded|merge(music) %}
+        {% set index = %}
+        {% set next = list[index+1] %} #}
         <nav class="info-nav bottom ui-worknav">
-            <a href="{{ work.prev ? '/work/' ~ work.prev.slug : '/' }}"{% if not work.prev %} style="opacity:.2;pointer-events:none;"{% endif %} class="link ui-prev">prev</a>
+            <a href="{{ work.next ? '/work/' ~ work.next.slug : '/' }}"{% if not work.next %} style="opacity:.2;pointer-events:none;"{% endif %} class="link ui-next">prev</a>
             /
-            <a href="{{ work.next ? '/work/' ~ work.next.slug : '/' }}"{% if not work.next %} style="opacity:.2;pointer-events:none;"{% endif %} class="link ui-next">next</a>
+            <a href="{{ work.prev ? '/work/' ~ work.prev.slug : '/' }}"{% if not work.prev %} style="opacity:.2;pointer-events:none;"{% endif %} class="link ui-prev">next</a>
         </nav>
         <div class="close-text ui-close">close</div>
     </div>

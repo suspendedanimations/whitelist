@@ -155,8 +155,8 @@ class Section extends Default {
         tl.to(this.ui.video, 5, { scale: 1, autoAlpha: 1, ease: Expo.easeInOut }, 0)
         if(single) {
             tl.to(this.ui.title, .6, { autoAlpha: 1 }, 0)
-            tl.staggerFrom(this.split.words, 1.3, { autoAlpha: 0, ease: Expo.easeInOut, clearProps: 'transform' }, .15, 0)
-            tl.to(this.ui.title, 1, { autoAlpha: 0 }, 3)
+            tl.staggerFrom(this.split.words, 1, { autoAlpha: 0, ease: Expo.easeInOut, clearProps: 'transform' }, .1, 0)
+            tl.to(this.ui.title, 1, { autoAlpha: 0 }, 1.5)
         }
         tl.restart()
     }
@@ -174,7 +174,7 @@ class Section extends Default {
             done()
         }})
         !single && tl.to(this.page, 1.2, { autoAlpha: 0, ease: Expo.easeInOut })
-        single && tl.to(this.ui.video, 1, { autoAlpha: 0, ease: Expo.easeInOut })
+        single && tl.to(this.ui.video, .7, { autoAlpha: 0, ease: Expo.easeInOut })
         tl.restart()
     }
     
