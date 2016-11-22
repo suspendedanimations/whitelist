@@ -10,6 +10,7 @@
     "gsap-splitext": "./assets/js/lib/gsap/src/uncompressed/utils/SplitText.js"
   },
   "dependencies": {
+    "@vimeo/player": "^1.0.6",
     "bigwheel": "3.0.0",
     "bw-router": "^2.0.5",
     "bw-viewmediator": "2.1.0",
@@ -20,8 +21,6 @@
     "dom-events": "npm-dom/dom-events",
     "dom-select": "npm-dom/dom-select",
     "gsap": "1.18.0",
-    "packery": "^2.1.1",
-    "performance-now": "^0.2.0",
     "pixi.js": "^3.0.10",
     "please-ajax": "^2.0.2",
     "prefix": "^0.2.4",

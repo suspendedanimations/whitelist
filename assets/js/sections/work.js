@@ -5,8 +5,6 @@ import event from 'dom-events'
 import Default from './default'
 import Normal from 'smooth-scrolling'
 import Smooth from '../lib/smooth/work'
-import Packery from 'packery'
-import player from '../lib/player.min.js'
 
 class Work extends Default {
     

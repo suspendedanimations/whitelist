@@ -1,14 +1,14 @@
 .work-single {
     // display: block;
     // position: relative;
-
-    &.afk {
+    
+    .afk & {
         .info-nav {
             opacity: 0;
             pointer-events: none;
         }
     }
-
+    
     .work-video {
         .absolute();
         .size(100%,100%);
@@ -50,6 +50,7 @@
         height: auto;
         transform: translate3d(0,-50%,0);
         z-index: 20;
+        pointer-events: none;
         
         @media @mobile {
             min-height: 55%;

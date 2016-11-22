@@ -34,6 +34,33 @@ const utils = {
 
 			if (window.pageYOffset) return window.pageYOffset;
 			return document.documentElement.clientHeight ? document.documentElement.scrollTop : document.body.scrollTop;
+		},
+		
+		throttle(fn, threshhold = 250) {
+			
+			let last
+			let deferTimer
+			
+			return () => {
+
+				const now = +new Date
+				const args = arguments
+
+				if (last && now < last + threshhold) {
+				  
+			  		clearTimeout(deferTimer)
+
+			  		deferTimer = setTimeout(() => {
+			    		last = now
+			    		fn.apply(this, args)
+			  		}, threshhold)
+			  		
+				} else {
+
+			  		last = now
+			  		fn.apply(this, args)
+				}
+			}
 		}
 	},
 	
