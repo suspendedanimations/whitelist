@@ -66,7 +66,7 @@ class Section extends Default {
         
         this.ui.frame.src = this.ui.frame.getAttribute('data-src')
     }
-    
+
     addVideoEvents(done) {
 
         const _ = this.video
@@ -90,7 +90,7 @@ class Section extends Default {
     }
 
     removeVideoEvents() {
-        
+
         this.video.off('ended', this.onVideoEnded)
         this.video.unload().then(() => {
             this.video = null
@@ -109,7 +109,7 @@ class Section extends Default {
         this.scroll.init()
         this.scroll.off()
     }
-    
+
     addSplit() {
 
         this.split = new SplitText(this.ui.split, { type: this.ui.split.getAttribute('data-split') })
@@ -186,12 +186,15 @@ class Section extends Default {
     }
 
     onMouseMove(e) {
-
+        
         this.s && clearTimeout(this.s)
 
         this.moving = true
 
-        classes.has(this.page, 'afk') && classes.remove(this.page, 'afk')
+        if(classes.has(config.$body, 'afk')) {
+            
+            classes.remove(config.$body, 'afk')
+        }
 
         if(this.moving) {
 
@@ -199,10 +202,19 @@ class Section extends Default {
 
                 this.moving = false
 
-                classes.add(this.page, 'afk')
+                classes.add(config.$body, 'afk')
 
             }, 3000)
         }
+    }
+    
+    clearTimeout() {
+
+        this.s && clearTimeout(this.s)
+        
+        config.$body.style.cursor = ''
+        
+        classes.remove(config.$body, 'afk')
     }
 
     animateIn(req, done) {
@@ -252,7 +264,8 @@ class Section extends Default {
         super.destroy()
         
         this.removeEvents()
-
+        this.clearTimeout()
+        
         this.scroll.destroy()
         
         this.page.parentNode.removeChild(this.page)
